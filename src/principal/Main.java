@@ -1,26 +1,16 @@
 package principal;
 
-import com.google.gson.*;
-import excepciones.OpcionNoValidaException;
+import modelos.Conversor;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
         Scanner lectura = new Scanner(System.in);
         boolean salir = false;
         double monto = 0.0;
-        Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
-                .setPrettyPrinting()
-                .create();
-        //
+        /*
         while(!salir){
             try{
                 System.out.println("\n*****************************************************");
@@ -54,29 +44,8 @@ public class Main {
                     System.out.println("Ingrese el monto que desea convertir: ");
                     monto = lectura.nextDouble();
                 }
-                String direccion = "https://v6.exchangerate-api.com/v6/84cf4f0ca20cdd2ed2c8338d/pair/"+compararcion+"/"+monto;
-
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(direccion))
-                        .build();
-
-                HttpResponse<String> response = client
-                        .send(request, HttpResponse.BodyHandlers.ofString());
-
-                String json = response.body();
-                System.out.println(json);
-
-                JsonObject jo = new Gson().fromJson(json, JsonObject.class);
-                System.out.println(jo.get("conversion_rate"));
-                String primeraMoneda = compararcion.split("/")[0];
-                String segundaMoneda = compararcion.split("/")[1];
-                System.out.println("El valor "+monto+" ["+primeraMoneda+"] corresponde al valor final de =>> "+jo.get("conversion_result")+" ["+segundaMoneda+"]");
 
 
-
-            }catch (IllegalArgumentException e){
-                System.out.println("Error en la URI, verifique la dirección.");
             }catch (InputMismatchException e){
                 System.out.println("[ERROR] Debe ingresar un número.");
                 lectura.nextLine(); // limpia el buffer
@@ -84,6 +53,12 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
+        */
+
+        //Conversor conversor = new Conversor("USD", "ARS", 1.0);
+        //conversor.convertirMoneda();
+
+        new Conversor().mostrarCodigosDeMonedas();
         System.out.println("Programa finalizado!!!");
     }
 }
