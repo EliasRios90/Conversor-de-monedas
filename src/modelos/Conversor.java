@@ -23,7 +23,6 @@ public class Conversor {
     private String segundoCodigoDeMoneda;
     private double valorAConvertir;
     private FileWriter historial;
-    private List<List<String>> listaDeCodigos;
     private JsonObject jsonObject;
 
     public Conversor(String primeraMoneda, String segundaMoneda, double valor) throws IOException {
@@ -84,10 +83,10 @@ public class Conversor {
         String direccion = "https://v6.exchangerate-api.com/v6/84cf4f0ca20cdd2ed2c8338d/codes";
         conectarAPI(direccion);
 
-        this.listaDeCodigos = new ArrayList<>(new Gson().fromJson(this.jsonObject.get("supported_codes"), listType));
-
+        List<List<String>> listaDeCodigos = new ArrayList<>(new Gson().fromJson(this.jsonObject.get("supported_codes"), listType));
         int contador = 1;
-        for(List<String> item : this.listaDeCodigos){
+
+        for(List<String> item : listaDeCodigos){
             System.out.println(contador+" --> "+item);
             contador++;
         }
