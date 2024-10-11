@@ -5,7 +5,6 @@ import excepciones.OpcionNoValidaException;
 import modelos.Conversor;
 
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.*;

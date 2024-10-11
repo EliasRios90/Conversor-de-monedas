@@ -54,34 +54,14 @@ public class Conversor {
     }
 
     private void conectarAPI(String direccion) throws IOException {
-        // Making Request
         URL url = new URL(direccion);
         HttpURLConnection request = (HttpURLConnection) url.openConnection();
         request.connect();
 
-        // Convert to JSON
         JsonParser jp = new JsonParser();
         JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
         jsonObject = root.getAsJsonObject();
     }
-    /*public double convertirMoneda() throws IOException {
-        double conversion = -1.0;
-        String direccion = "https://v6.exchangerate-api.com/v6/84cf4f0ca20cdd2ed2c8338d/pair/"+
-                getPrimerCodigoDeMoneda()+"/"+getSegundoCodigoDeMoneda()+"/"+getValorAConvertir();
-
-        conectarAPI(direccion);
-        conversion = Double.valueOf(jsonObject.get("conversion_result").getAsString());
-
-        historial.write(
-                getFechaHora()+" | "+
-                getValorAConvertir()+" ["+
-                getPrimerCodigoDeMoneda()+"] ==>> "+
-                conversion+" ["+
-                getSegundoCodigoDeMoneda()+"]\n");
-        historial.close();
-
-        return conversion;
-    }*/
     public double convertirMoneda(String primerCodigo, String segundoCodigo, double valor) throws IOException {
         double conversion = -1.0;
         String direccion = "https://v6.exchangerate-api.com/v6/84cf4f0ca20cdd2ed2c8338d/pair/"+
@@ -105,22 +85,13 @@ public class Conversor {
         conectarAPI(direccion);
 
         listaDeCodigos = new ArrayList<>(new Gson().fromJson(jsonObject.get("supported_codes"), listType));
-        //lista.forEach((n) -> System.out.println(n));
+
         int contador = 1;
         for(List<String> item : listaDeCodigos){
             System.out.println(contador+" --> "+item);
             contador++;
         }
     }
-    /*public double convertirOtrasMonedas(String primerCodigo, String segundoCodigo, double valor) throws IOException {
-        setPrimerCodigoDeMoneda(primerCodigo);
-        setSegundoCodigoDeMoneda(segundoCodigo);
-        setValorAConvertir(valor);
-
-        double resultado = convertirMoneda(primerCodigo, segundoCodigo, valor);
-        System.out.println("Resultado: "+resultado);
-        return resultado;
-    }*/
     public void verHistorialDeConversiones() throws IOException {
         BufferedReader br = new BufferedReader(new FileReader("Historial.txt"));
         String texto;
@@ -132,7 +103,6 @@ public class Conversor {
     }
     private String getFechaHora(){
         DateTimeFormatter formato = DateTimeFormatter
-                //.ofPattern("EEEE dd 'de' MMMM 'de' yyyy 'a las' hh:mm:ss")
                 .ofLocalizedDateTime(FormatStyle.SHORT)
                 .withLocale(new Locale("es", "ES"));
         String fecha = LocalDateTime.now().format(formato);
