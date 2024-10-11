@@ -109,11 +109,8 @@ public class Main {
                 System.out.println("[ERROR] No se ha podido obtener una respuesta.");
             }catch (IOException e){
                 System.out.println("[ERROR] Ha ocurrido un problema inesperado.");
-                System.out.println(e.getStackTrace());
-                System.out.println(e.getMessage());
             }
         }
-
         System.out.println("¡Programa finalizado!");
     }
 }

@@ -27,9 +27,9 @@ public class Conversor {
     private JsonObject jsonObject;
 
     public Conversor(String primeraMoneda, String segundaMoneda, double valor) throws IOException {
-        this.primerCodigoDeMoneda = primeraMoneda;
-        this.segundoCodigoDeMoneda = segundaMoneda;
-        this.valorAConvertir = valor;
+        setPrimerCodigoDeMoneda(primeraMoneda);
+        setSegundoCodigoDeMoneda(segundaMoneda);
+        setValorAConvertir(valor);
         this.historial = new FileWriter("Historial.txt", true);
     }
     public Conversor() throws IOException {
@@ -60,7 +60,7 @@ public class Conversor {
 
         JsonParser jp = new JsonParser();
         JsonElement root = jp.parse(new InputStreamReader((InputStream) request.getContent()));
-        jsonObject = root.getAsJsonObject();
+        this.jsonObject = root.getAsJsonObject();
     }
     public double convertirMoneda(String primerCodigo, String segundoCodigo, double valor) throws IOException {
         double conversion = -1.0;
@@ -68,15 +68,15 @@ public class Conversor {
                 primerCodigo+"/"+segundoCodigo+"/"+valor;
 
         conectarAPI(direccion);
-        conversion = Double.valueOf(jsonObject.get("conversion_result").getAsString());
+        conversion = Double.valueOf(this.jsonObject.get("conversion_result").getAsString());
 
-        historial.write(
+        this.historial.write(
                 getFechaHora()+" | "+
                 valor+" ["+
                 primerCodigo+"] ==>> "+
                 conversion+" ["+
                 segundoCodigo+"]\n");
-        historial.flush();
+        this.historial.flush();
         return conversion;
     }
     public void mostrarCodigosDeMonedas() throws IOException {
@@ -84,10 +84,10 @@ public class Conversor {
         String direccion = "https://v6.exchangerate-api.com/v6/84cf4f0ca20cdd2ed2c8338d/codes";
         conectarAPI(direccion);
 
-        listaDeCodigos = new ArrayList<>(new Gson().fromJson(jsonObject.get("supported_codes"), listType));
+        this.listaDeCodigos = new ArrayList<>(new Gson().fromJson(this.jsonObject.get("supported_codes"), listType));
 
         int contador = 1;
-        for(List<String> item : listaDeCodigos){
+        for(List<String> item : this.listaDeCodigos){
             System.out.println(contador+" --> "+item);
             contador++;
         }
@@ -96,6 +96,7 @@ public class Conversor {
         BufferedReader br = new BufferedReader(new FileReader("Historial.txt"));
         String texto;
         int contador = 1;
+
         while ((texto = br.readLine()) != null){
             System.out.println(contador+" | "+texto);
             contador++;
@@ -109,6 +110,6 @@ public class Conversor {
         return fecha;
     }
     public void cerrarHistorial() throws IOException {
-        historial.close();
+        this.historial.close();
     }
 }

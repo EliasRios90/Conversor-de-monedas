@@ -1,5 +1,5 @@
 # Alura Challenge: Conversor de monedas
-Proyecto Backend: Conversor de monedas en Java realizando solicitudes a una API de tasas de cambio.
+Proyecto Backend: Conversor de monedas en Java realizando solicitudes a ExchangeRate-API de tasas de cambio en tiempo real.
 
 Segundo Challenge de Alura Latam + ONE
 
@@ -11,5 +11,18 @@ Segundo Challenge de Alura Latam + ONE
 2. Mostrar todos los códigos de monedas disponibles.
 3. Ver historial.
 
-Tiene algunas conversiones ya establecidas que puedes seleccionar desde el menú principal, pero también puedes seleccionar el código de las monedas de los países que se muestran en el listado para hacer las conversiones que quieras y también puedes ver tu historial de conversiones, indicando la fecha y hora de cada conversión realizada.
+Tiene algunas conversiones ya establecidas que puedes seleccionar desde el menú principal, pero también puedes seleccionar el código de las monedas de los países que se muestran en el listado para hacer las conversiones que quieras y también puedes ver tu historial de conversiones. El historial es un archivo .txt que contiene todas las conversiones con la fecha y hora de cada conversión realizada.
 
+## Imágenes de la aplicación
+
+### Menú de la aplicación:
+![imagen menu](src/imagenes/menu.bmp)
+
+### Ejemplo de una conversión ya establecida:
+![imagen ejemplo](src/imagenes/ejemplo-1.bmp)
+
+### Selección de otros código de monedas (162 códigos en total):
+![imagen otras monedas](src/imagenes/otras-monedas.bmp)
+
+### Historial de las conversiones realizadas
+![imagen historial](src/imagenes/historial.bmp)
